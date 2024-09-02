@@ -14,7 +14,18 @@ class EtlSpec extends AnyFreeSpec with Matchers {
         "src/test/resources/testOutput.txt"
       val expectedFileContents = List("hello world")
 
-      etl(input, output)
+      etl(input, output)(using Etl.StringImpl)
+
+      readFile(output) shouldEqual Success(expectedFileContents)
+    }
+        "transforms a text file by doubling all integers and saves it to a new file" in {
+      val input =
+        "src/test/resources/testInput2.txt"
+      val output =
+        "src/test/resources/testOutput2.txt"
+      val expectedFileContents = List("0","10","12","12","16","14","18","18")
+
+      etl(input, output)(using Etl.IntImpl)
 
       readFile(output) shouldEqual Success(expectedFileContents)
     }
