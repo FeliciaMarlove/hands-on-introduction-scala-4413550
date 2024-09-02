@@ -9,4 +9,8 @@ import FileUtils.*
   val output: String = "src/main/resources/output.txt"
 
   import Etl.IntImpl
-  etl(input, output)
+  // pattern matching => check Scala doc
+  etl(input, output) match
+    case Left(error) => println(s"Failure: $error")
+    case Right(value) => println("Success!")
+  
