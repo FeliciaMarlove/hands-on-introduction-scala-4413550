@@ -1,18 +1,18 @@
-@main def sayHello: Unit = sayHi("Florence")
+@main def run: Unit = 
+  val input: String = ???
+  val output: String = ???
+  etl(input, output)
 
-// Scala2:
-//def sayHi(name: String): Unit = 
-//  println(s"Hi $name")
-//end sayHi
+def etl(inputFilePath: String, outputFilePath: String): Unit = 
+  val extracted = extract(inputFilePath)
+  val transformed = transform(extracted)
+  // NO NEED TO WRITE "RETURN" IN SCALA!
+  // last line of a method = return
+  load(transformed, outputFilePath) 
 
-// New in Scala3:
-//def sayHi(name: String): Unit = {
-//  println(s"Hi $name")
-//}
+def extract(input: String): List[String] = ???
 
-// Or Scala3:
-def sayHi(name: String): Unit =
-  val listN = List(1, 2, 3)
-  val listS = List("toto", "tata")
-  val listM: List[String | Int | Double] = List(3.0, 1, "hello")
-  println(s"Hi $name")
+def transform(data: List[String]): List[String] = ???
+
+// Unit => "there's nothing to return but there's a side effect"
+def load(data: List[String], output: String = "src/main/resources"): Unit = ???
